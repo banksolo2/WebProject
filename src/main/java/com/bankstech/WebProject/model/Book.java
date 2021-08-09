@@ -1,20 +1,14 @@
 package com.bankstech.WebProject.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "Book")
 @Table( name = "book")
 public class Book {
-
     @Id
-    @SequenceGenerator(
-            name = "book_sequence",
-            sequenceName = "book_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "book_sequence"
+            strategy = GenerationType.AUTO
     )
     @Column(
             name = "book_id",

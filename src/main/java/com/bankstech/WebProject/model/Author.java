@@ -6,14 +6,8 @@ import javax.persistence.*;
 @Table( name = "author")
 public class Author {
     @Id
-    @SequenceGenerator(
-            name = "author_sequence",
-            sequenceName = "author_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "author_sequence"
+            strategy = GenerationType.AUTO
     )
     @Column(
             name = "author_id",

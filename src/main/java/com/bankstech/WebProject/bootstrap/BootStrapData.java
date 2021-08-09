@@ -1,14 +1,14 @@
 package com.bankstech.WebProject.bootstrap;
 
-import com.bankstech.WebProject.model.Author;
-import com.bankstech.WebProject.model.AuthorBook;
-import com.bankstech.WebProject.model.Book;
 import com.bankstech.WebProject.repository.AuthorBookRepository;
 import com.bankstech.WebProject.repository.AuthorRepository;
 import com.bankstech.WebProject.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import com.bankstech.WebProject.model.*;
+
+import java.sql.SQLOutput;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -27,11 +27,12 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Author banks = new Author("Banks","Tech");
+        Book java = new Book("Java Programming Language","234566");
         authorRepository.save(banks);
-        Book java = new Book("Java Programming Language", "234566");
         bookRepository.save(java);
-        AuthorBook ab1 = new AuthorBook(banks,java);
-        authorBookRepository.save(ab1);
+        AuthorBook bj = new AuthorBook(banks,java);
+        authorBookRepository.save(bj);
 
+        System.out.println("Started Bootstrap Data..");
     }
 }

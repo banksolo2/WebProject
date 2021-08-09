@@ -2,19 +2,12 @@ package com.bankstech.WebProject.model;
 
 import javax.persistence.*;
 
-@Entity( name = "AuthorBook")
-@Table( name = "author_book")
+@Entity(name = "AuthorBook")
+@Table(name = "author_book")
 public class AuthorBook {
-
     @Id
-    @SequenceGenerator(
-            name = "author_book_sequence",
-            sequenceName = "author_book_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "author_book_sequence"
+            strategy = GenerationType.AUTO
     )
     @Column(
             name = "author_book_id",
@@ -23,12 +16,13 @@ public class AuthorBook {
     private Long id;
 
     @OneToOne
-    @JoinColumn( name = "author_id")
+    @JoinColumn(name = "author_id")
     private Author author;
 
     @OneToOne
-    @JoinColumn( name = "book_id")
+    @JoinColumn( name = "book_id" )
     private Book book;
+
 
     public AuthorBook(){}
 
