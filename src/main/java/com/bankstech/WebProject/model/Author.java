@@ -1,13 +1,21 @@
 package com.bankstech.WebProject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity( name ="Author")
 @Table( name = "author")
-public class Author {
+public class Author implements Serializable {
     @Id
+    @SequenceGenerator(
+            name = "author_sequence",
+            sequenceName = "author_sequence",
+            allocationSize = 1
+    )
     @GeneratedValue(
-            strategy = GenerationType.AUTO
+            strategy = GenerationType.SEQUENCE,
+            generator = "author_sequence"
     )
     @Column(
             name = "author_id",
@@ -26,6 +34,9 @@ public class Author {
             nullable = false
     )
     private String lastName;
+
+    @ManyToMany( mappedBy = "authors")
+    private Set<Book> books;
 
     public Author(){}
 
@@ -64,12 +75,21 @@ public class Author {
         this.lastName = lastName;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", books=" + books +
                 '}';
     }
 

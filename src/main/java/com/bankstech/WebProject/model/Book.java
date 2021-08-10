@@ -1,14 +1,21 @@
 package com.bankstech.WebProject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity(name = "Book")
 @Table( name = "book")
-public class Book {
+public class Book implements Serializable {
     @Id
+    @SequenceGenerator(
+            name = "book_sequence",
+            sequenceName = "book_sequence",
+            allocationSize = 1
+    )
     @GeneratedValue(
-            strategy = GenerationType.AUTO
+            strategy = GenerationType.SEQUENCE,
+            generator = "book_sequence"
     )
     @Column(
             name = "book_id",
@@ -27,6 +34,18 @@ public class Book {
             nullable = false
     )
     private String isbn;
+
+    @ManyToMany
+    @JoinTable(
+            name = "author_Book",
+            joinColumns = @JoinColumn( name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private Set<Author> authors;
+
+    @ManyToOne
+    @JoinColumn( name = "publisher_id")
+    private Publisher publisher;
 
     public Book(){}
 
@@ -65,12 +84,31 @@ public class Book {
         this.isbn = isbn;
     }
 
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
+
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
+                ", authors=" + authors +
+                ", publisher=" + publisher +
                 '}';
     }
 
