@@ -107,8 +107,6 @@ public class Book implements Serializable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
-                ", publisher=" + publisher +
                 '}';
     }
 
